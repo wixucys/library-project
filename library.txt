@@ -1,2 +1,2 @@
-1984;George Orwell;Dystopia
-The Hobbit;J.R.R. Tolkien;Fantasy
+1984;Джордж Оруэлл;Дистопия
+Хоббит;Ричард Толкин;Фэнтези

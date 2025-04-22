@@ -13,8 +13,8 @@ class FileStorageTest {
     void setUp() {
         storage = new FileStorage();
         testBooks = List.of(
-                new Book("1984", "George Orwell", "Dystopia"),
-                new Book("The Hobbit", "J.R.R. Tolkien", "Fantasy")
+                new Book("1984", "Джордж Оруэлл", "Дистопия"),
+                new Book("Хоббит", "Ричард Толкин", "Фэнтези")
         );
     }
 

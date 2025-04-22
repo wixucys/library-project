@@ -6,8 +6,12 @@ import java.util.List;
 public class Library {
     private List<Book> books = new ArrayList<>();
 
-    public void addBook(Book book) {
+    public boolean addBook(Book book) {
+        if (books.stream().anyMatch(b -> b.getTitle().equalsIgnoreCase(book.getTitle()))) {
+            return false;
+        }
         books.add(book);
+        return true;
     }
 
 
@@ -33,4 +37,5 @@ public class Library {
     public List<Book> getAllBooks() {
         return new ArrayList<>(books);
     }
+
 }
