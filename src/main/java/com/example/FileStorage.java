@@ -1,11 +1,12 @@
 package com.example;
 
 import java.io.*;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileStorage {
-    private static final String FILE_PATH = "library.txt";
+    public static final String FILE_PATH = "library.txt";
 
     public void saveBooks(List<Book> books) throws IOException {
         // Создаем временный файл для безопасной записи
