@@ -22,20 +22,21 @@ public class Library {
         );
     }
 
-    public void addBook(String title, String author, String genre) {
+    public boolean addBook(String title, String author, String genre) {
         if (title == null || author == null || genre == null ||
                 title.isBlank() || author.isBlank() || genre.isBlank()) {
             System.out.println("Ошибка: Все поля книги должны быть заполнены!");
-            return;
+            return false;
         }
 
         if (bookExists(title, author)) {
             System.out.printf("Ошибка: Книга '%s' автора %s уже существует!%n", title, author);
-            return;
+            return false;
         }
 
         books.add(new Book(title, author, genre));
         System.out.printf("Успех: Книга '%s' добавлена в библиотеку!%n", title);
+        return true;
     }
 
 
