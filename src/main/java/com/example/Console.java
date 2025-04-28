@@ -1,32 +1,31 @@
 package com.example;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Console {
-    private Library library;
-    private FileStorage storage;
-    private Scanner scanner;
+    private final Library library;
+    private final FileStorage storage;
+    private final Scanner scanner;
 
     public Console() {
         this.library = new Library();
         this.storage = new FileStorage();
         this.scanner = new Scanner(System.in);
-        loadData();
+        loadInitialData();
     }
 
-
-    private void loadData() {
+    private void loadInitialData() {
         try {
             List<Book> books = storage.loadBooks();
-            books.forEach(library::addBook);
-            System.out.println("Данные загружены!");
+            library.bulkAddBooks(books);
+            System.out.println("Данные загружены! Загружено книг: " + books.size());
         } catch (IOException e) {
             System.err.println("Ошибка загрузки: " + e.getMessage());
         }
     }
-
 
     public void run() {
         while (true) {
@@ -35,7 +34,6 @@ public class Console {
             handleUserChoice(choice);
         }
     }
-
 
     private void printMenu() {
         System.out.println("\n=== Меню ===");
@@ -47,7 +45,6 @@ public class Console {
         System.out.println("6. Выход");
         System.out.print("Выберите действие: ");
     }
-
 
     private void handleUserChoice(String choice) {
         switch (choice) {
@@ -61,7 +58,6 @@ public class Console {
         }
     }
 
-
     private void addBook() {
         System.out.print("Название: ");
         String title = scanner.nextLine();
@@ -70,23 +66,21 @@ public class Console {
         System.out.print("Жанр: ");
         String genre = scanner.nextLine();
 
-        Book book = new Book(title, author, genre);
-        library.addBook(book);
-        System.out.println("Книга добавлена!");
+        boolean result = library.addBook(title, author, genre);
+        // Сообщения уже выводятся в методе addBook класса Library
+        // Здесь мы просто получаем результат операции
     }
-
 
     private void removeBook() {
         System.out.print("Название книги для удаления: ");
         String title = scanner.nextLine();
 
         if (library.removeBook(title)) {
-            System.out.println("Книга удалена!");
+            System.out.println("Книга успешно удалена!");
         } else {
             System.out.println("Книга не найдена!");
         }
     }
-
 
     private void showAllBooks() {
         List<Book> books = library.getAllBooks();
@@ -101,7 +95,6 @@ public class Console {
         ));
     }
 
-
     private void searchByAuthor() {
         System.out.print("Автор: ");
         String author = scanner.nextLine();
@@ -114,7 +107,6 @@ public class Console {
             books.forEach(book -> System.out.println(book.getTitle() + " (" + book.getGenre() + ")"));
         }
     }
-
 
     private void searchByGenre() {
         System.out.print("Жанр: ");
@@ -129,13 +121,15 @@ public class Console {
         }
     }
 
-
     private void saveAndExit() {
         try {
             storage.saveBooks(library.getAllBooks());
-            System.out.println("Данные сохранены. До свидания!");
+            System.out.println("Данные успешно сохранены в файл " + FileStorage.FILE_PATH);
         } catch (IOException e) {
             System.err.println("Ошибка сохранения: " + e.getMessage());
+            System.err.println("Попробуйте проверить права доступа к файлу " +
+                    new File(FileStorage.FILE_PATH).getAbsolutePath());
         }
+        System.exit(0);
     }
 }
