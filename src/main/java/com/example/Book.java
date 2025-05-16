@@ -42,16 +42,10 @@ public class Book {
         return this.genre.equals(normalizeString(genre));
     }
 
-
-    public String getTitle() {
-        return title;
-    }
-    public String getAuthor() {
-        return author;
-    }
-    public String getGenre() {
-        return genre;
-    }
+    // Геттеры и стандартные equals/hashCode
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public String getGenre() { return genre; }
 
     @Override
     public boolean equals(Object o) {

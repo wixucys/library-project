@@ -1,13 +1,13 @@
 package com.example;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Library {
-    private List<Book> books = new ArrayList<>();
-    private FileStorage fileStorage = new FileStorage();
+    private List<Book> books;
+    private final FileStorage fileStorage;
 
     public Library(FileStorage fileStorage) {
         this.fileStorage = fileStorage;
